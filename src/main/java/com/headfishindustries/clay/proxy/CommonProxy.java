@@ -21,7 +21,7 @@ public class CommonProxy {
 	
 	@EventHandler
 	public void postInit (FMLPostInitializationEvent e) {
-
+		CraftDerper.removeRecipes();
 	}
 
 }

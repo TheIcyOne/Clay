@@ -1,0 +1,16 @@
+[
+{
+  "modid": "claymod",
+  "name": "Clay",
+  "description": "Excessively Memey clay.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["The_Icy_One"],
+  "credits": "The FTB Team for giving me a reason to actually make this thing.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

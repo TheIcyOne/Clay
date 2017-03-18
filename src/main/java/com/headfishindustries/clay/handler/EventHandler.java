@@ -34,7 +34,7 @@ public class EventHandler {
             event.setCanceled(true);
             if (!event.getWorld().isRemote) {
                 event.getWorld().playSound(
-                        null, event.getPos(), SoundHandler.CLAY_BREAK,
+                        null, event.getPos(), SoundHandler.NEED_WATER,
                         SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
         }

@@ -6,14 +6,14 @@ import net.minecraft.util.SoundEvent;
 
 public class SoundHandler {
 	
-	static SoundEvent CLAY_BREAK;
+	static SoundEvent NEED_WATER;
 	
 	public static void registerSound(){
-		ResourceLocation path = new ResourceLocation(Clay.MODID + ":clay_break");
+		ResourceLocation path = new ResourceLocation(Clay.MODID + ":need_water");
 		if (Clay.LOG_EVERYTHING) {
 			Clay.LOGGER.info("Registering sound <{}>", path);
 		}
-		CLAY_BREAK = new SoundEvent(path).setRegistryName("clay_break");
+		NEED_WATER = new SoundEvent(path).setRegistryName("need_water");
 	}
 
 }

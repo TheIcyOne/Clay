@@ -1,0 +1,8 @@
+{
+  "clay_break":
+  {
+    "category": "blocks",
+    "subtitle": "sound.claymod.clay_break",
+    "sounds": [ "claymod:clay_break" ]
+  }
+}

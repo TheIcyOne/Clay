@@ -1,38 +1,43 @@
 package com.headfishindustries.clay;
 
-import com.headfishindustries.clay.proxy.CommonProxy;
-
+import com.headfishindustries.clay.handler.EventHandler;
+import com.headfishindustries.clay.handler.RecipeHandler;
+import com.headfishindustries.clay.handler.SoundHandler;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Clay.MODID, version = Clay.VERSION)
+
 public class Clay {
+
 	public static final String MODID = "claymod";
-	public static final String VERSION = "GRADLE:VERSION-" + "GRADLE:BUILD";
+	public static final String VERSION = "%gradle.version%";
+
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
+	public static final boolean LOG_EVERYTHING = true;
 	
-	@SidedProxy(clientSide="com.headfishindustries.clay.proxy.ClientProxy", serverSide = "com.headfishindustries.clay.proxy.CommonProxy")
-	public static CommonProxy proxy;
-	
-	@EventHandler
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e){
-		proxy.preInit(e);
+		EventHandler.registerEvents();
+
 	}
-	
-	@EventHandler
+
+	@Mod.EventHandler
 	public void init (FMLInitializationEvent e) {
-		proxy.init(e);
+		SoundHandler.registerSound();
+
 	}
-	
-	@EventHandler
+
+	@Mod.EventHandler
 	public void postInit (FMLPostInitializationEvent e) {
-		proxy.postInit(e);
+		RecipeHandler.removeExistingRecipes();
+		RecipeHandler.addBalancedRecipe();
+
 	}
-	
-	public String getVersion() {
-		return VERSION;
-	}
+
 }
+

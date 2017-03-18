@@ -1,0 +1,8 @@
+{
+  "need_water":
+  {
+    "category": "blocks",
+    "subtitle": "sound.claymod.need_water",
+    "sounds": [ "claymod:need_water" ]
+  }
+}

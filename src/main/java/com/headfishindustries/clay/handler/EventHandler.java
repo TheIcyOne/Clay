@@ -32,7 +32,7 @@ public class EventHandler {
         else if (stack == null || (!(stack.getItem().getToolClasses(stack).contains("shovel"))
                 || !(event.getPlayer().isInWater()))) {
             event.setCanceled(true);
-            if (!event.getWorld().isRemote) {
+            if (!event.getWorld().isRemote && !event.getPlayer().isInWater()) {
                 event.getWorld().playSound(
                         null, event.getPos(), SoundHandler.NEED_WATER,
                         SoundCategory.BLOCKS, 1.0f, 1.0f);

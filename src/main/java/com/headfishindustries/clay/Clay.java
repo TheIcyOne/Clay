@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Clay.MODID, version = Clay.VERSION)
+@Mod(modid = Clay.MODID, version = Clay.VERSION, acceptedMinecraftVersions="[1.12,1.13]")
 
 public class Clay {
 

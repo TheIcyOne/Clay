@@ -1,27 +1,29 @@
 package com.headfishindustries.clay.handler;
 
 
+import java.lang.reflect.Method;
+import java.util.Objects;
+
 import com.headfishindustries.clay.Clay;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockClay;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.lang.reflect.Method;
-import java.util.Objects;
 
 public class EventHandler {
 
-    public static void registerEvents() {
+	public static void registerEvents() {
         EventHandler events = new EventHandler();
         MinecraftForge.EVENT_BUS.register(events);
         for (Method method : events.getClass().getDeclaredMethods())
-            if (Clay.LOG_EVERYTHING && !Objects.equals(method.getName(), "registerEvents")) {
+            if (Clay.LOG_EVERYTHING && !Objects.equals(method.getName(), "registerEvents"))
                 Clay.LOGGER.info("Registering @SubscribeEvent for {} to the event bus", method.getName());
-            }
     }
 
     @SubscribeEvent
@@ -38,6 +40,11 @@ public class EventHandler {
                         SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
         }
+    }
+    
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onPostTextureStitch(TextureStitchEvent.Post e) {
+    	Clay.LOGGER.info("Textures Stitched.");
     }
 
 }

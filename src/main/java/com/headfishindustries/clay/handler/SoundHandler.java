@@ -7,13 +7,20 @@ import net.minecraft.util.SoundEvent;
 public class SoundHandler {
 	
 	static SoundEvent NEED_WATER;
+	static SoundEvent DANCING_CLAY;
 	
-	public static void registerSound(){
-		ResourceLocation path = new ResourceLocation(Clay.MODID + ":need_water");
+	public static SoundEvent registerSound(String rl){
+		ResourceLocation path = new ResourceLocation(Clay.MODID + ":" + rl);
 		if (Clay.LOG_EVERYTHING) {
 			Clay.LOGGER.info("Registering sound <{}>", path);
 		}
-		NEED_WATER = new SoundEvent(path).setRegistryName("need_water");
+		return new SoundEvent(path).setRegistryName(rl);
+	}
+	
+	public static void registerSounds(){
+		NEED_WATER = registerSound("need_water");
+		DANCING_CLAY = registerSound("dancing_clay");
+		
 	}
 
 }

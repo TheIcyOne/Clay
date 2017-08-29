@@ -23,20 +23,18 @@ public class Clay {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e){
 		EventHandler.registerEvents();
-
+		RecipeHandler.removeExistingRecipes();
 	}
 
 	@Mod.EventHandler
 	public void init (FMLInitializationEvent e) {
-		SoundHandler.registerSound();
-
+		SoundHandler.registerSounds();
+		
+		RecipeHandler.addBalancedRecipe();
 	}
 
 	@Mod.EventHandler
 	public void postInit (FMLPostInitializationEvent e) {
-		RecipeHandler.removeExistingRecipes();
-		RecipeHandler.addBalancedRecipe();
-
 	}
 
 }

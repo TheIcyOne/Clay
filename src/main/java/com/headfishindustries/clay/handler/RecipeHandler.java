@@ -7,26 +7,29 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeHandler {
 
-    public static void removeExistingRecipes() {
-        List<IRecipe> recipeList = new ArrayList<>(CraftingManager.getInstance().getRecipeList());
+    @SuppressWarnings("rawtypes")
+	public static void removeExistingRecipes() {
+        List<IRecipe> recipeList = ForgeRegistries.RECIPES.getValues();
         for (IRecipe recipe : recipeList) {
             if (recipe.getRecipeOutput() != null) {
-                Item item = recipe.getRecipeOutput().getItem();
-                Block block = Block.getBlockFromItem(item);
-                if (block instanceof BlockClay) {
+                if (Block.getBlockFromItem(recipe.getRecipeOutput().getItem()) instanceof BlockClay) {
                     if (Clay.LOG_EVERYTHING) {
-                        Clay.LOGGER.info("Removing recipes for <{}>", block.getRegistryName());
+                        Clay.LOGGER.info("Removing clay recipe called <{}>", recipe.getRegistryName());
+                        
                     }
-                    CraftingManager.getInstance().getRecipeList().remove(recipe);
+                    ((IForgeRegistryModifiable)ForgeRegistries.RECIPES).remove(ForgeRegistries.RECIPES.getKey(recipe));
                 }
             }
         }
@@ -34,15 +37,22 @@ public class RecipeHandler {
 
     public static void addBalancedRecipe() {
         Block output = Blocks.CLAY;
-        if (Clay.LOG_EVERYTHING) {
+        
+        NonNullList<Ingredient> list = NonNullList.create();
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Item.getItemFromBlock(Blocks.DRAGON_EGG)));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        list.add(Ingredient.fromItem(Items.CLAY_BALL));
+        
+        if (Clay.LOG_EVERYTHING) 
             Clay.LOGGER.info("Registering new balanced recipe for <{}>", output.getRegistryName());
-        }
-        GameRegistry.addRecipe(
-                new ItemStack(output, 2),
-                "AAA", "ABA", "AAA",
-                'A', Items.CLAY_BALL,
-                'B', Blocks.DRAGON_EGG
-        );
+
+        ForgeRegistries.RECIPES.register(new ShapedRecipes(null, 3, 3, list, new ItemStack(output, 2)).setRegistryName("Clay"));
     }
 
 }

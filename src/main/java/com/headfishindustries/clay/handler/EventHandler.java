@@ -41,10 +41,4 @@ public class EventHandler {
             }
         }
     }
-    
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onPostTextureStitch(TextureStitchEvent.Post e) {
-    	Clay.LOGGER.info("Textures Stitched.");
-    }
-
 }
